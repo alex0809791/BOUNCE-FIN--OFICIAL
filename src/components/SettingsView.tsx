@@ -524,14 +524,13 @@ export const SettingsView: React.FC = () => {
                 </button>
               </div>
 
-              {/* PIX Phone Key display */}
+              {/* PIX Key display */}
               <div className="bg-slate-900 text-white p-4 rounded-2xl space-y-2">
                 <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block">
-                  Chave Pix (Telefone / Celular)
+                  Chave Pix
                 </span>
                 <div className="bg-slate-800 p-3 rounded-xl flex items-center justify-between border border-slate-700 font-mono text-sm sm:text-base font-bold text-emerald-300">
-                  <span>{PIX_FORMATTED_KEY}</span>
-                  <span className="text-xs text-slate-400 font-normal">({PIX_OFFICIAL_KEY})</span>
+                  <span>{PIX_OFFICIAL_KEY}</span>
                 </div>
                 <button
                   type="button"
@@ -550,8 +549,7 @@ export const SettingsView: React.FC = () => {
               {/* Steps */}
               <ol className="text-xs text-slate-600 space-y-1.5 list-decimal list-inside bg-slate-50 p-3.5 rounded-xl border border-slate-200">
                 <li>Abra o app do seu banco e vá em <strong>Pix &gt; Transferir</strong>;</li>
-                <li>Selecione chave <strong>Telefone/Celular</strong>;</li>
-                <li>Insira a chave <strong>{PIX_FORMATTED_KEY}</strong> e o valor de <strong>R$ 4,99</strong>;</li>
+                <li>Insira a chave Pix <strong>{PIX_OFFICIAL_KEY}</strong> e o valor de <strong>R$ 4,99</strong>;</li>
                 <li>Após transferir, clique em <strong>JÁ REALIZEI O PAGAMENTO</strong>.</li>
               </ol>
 

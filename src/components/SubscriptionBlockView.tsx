@@ -125,11 +125,10 @@ export const SubscriptionBlockView: React.FC = () => {
 
               <div className="space-y-2 text-center sm:text-left flex-1 min-w-0">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">
-                  Chave Pix (Telefone / Celular)
+                  Chave Pix
                 </span>
                 <div className="font-mono text-base sm:text-lg font-black bg-slate-800 px-3.5 py-2 rounded-xl text-emerald-300 border border-slate-700 tracking-wide flex items-center justify-between gap-2">
-                  <span>{PIX_FORMATTED_KEY}</span>
-                  <span className="text-[11px] text-slate-400 font-normal">({PIX_OFFICIAL_KEY})</span>
+                  <span>{PIX_OFFICIAL_KEY}</span>
                 </div>
                 <div className="pt-1">
                   <button
@@ -146,8 +145,8 @@ export const SubscriptionBlockView: React.FC = () => {
             {/* Instruction steps */}
             <ol className="text-xs text-slate-600 space-y-1.5 list-decimal list-inside bg-slate-50 p-4 rounded-xl border border-slate-200">
               <li>Abra o aplicativo do seu banco de preferência;</li>
-              <li>Acesse a área <strong>Pix &gt; Transferir</strong> e selecione a chave <strong>Telefone/Celular</strong>;</li>
-              <li>Cole a chave: <strong>{PIX_FORMATTED_KEY}</strong>;</li>
+              <li>Acesse a área <strong>Pix &gt; Transferir</strong>;</li>
+              <li>Cole a chave Pix: <strong>{PIX_OFFICIAL_KEY}</strong>;</li>
               <li>Confira o valor de <strong>R$ 4,99</strong> e confirme a transferência;</li>
               <li>Clique no botão <strong>"JÁ REALIZEI O PAGAMENTO"</strong> abaixo para informar a administração.</li>
             </ol>

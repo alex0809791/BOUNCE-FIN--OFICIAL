@@ -16,11 +16,17 @@ import {
   authenticateWithBiometrics,
 } from '../utils/crypto';
 import { supabase, TRIAL_DAYS, APP_DOMAIN } from '../utils/supabase';
+import emailjs from '@emailjs/browser';
+
+// EmailJS notification configuration (supports Vite env or direct fallback)
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'SEU_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'SEU_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'SUA_PUBLIC_KEY';
 
 // Admin emails with automatic administrative permissions
 const ADMIN_EMAILS = ['alexfernandestb6@gmail.com', 'admin@bouncefin.com.br'];
-export const PIX_OFFICIAL_KEY = '4799264966';
-export const PIX_FORMATTED_KEY = '47 99264-966';
+export const PIX_OFFICIAL_KEY = '11208979981';
+export const PIX_FORMATTED_KEY = '11208979981';
 export const SUBSCRIPTION_PRICE = 4.99;
 export const SUBSCRIPTION_DURATION_DAYS = 30; // Cada pagamento aprovado libera exatamente 30 dias
 
@@ -430,6 +436,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     savePaymentRequests(updatedRequests);
     setPaymentRequests(updatedRequests);
+
+    // Dispara notificação por e-mail para o administrador via EmailJS
+    try {
+      if (EMAILJS_SERVICE_ID && EMAILJS_SERVICE_ID !== 'SEU_SERVICE_ID') {
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            user_name: user.name,
+            user_email: user.email,
+            user_id: user.id,
+            amount: 'R$ 4,99',
+            pix_key: PIX_OFFICIAL_KEY,
+            to_email: 'alexfernandestb6@gmail.com',
+          },
+          EMAILJS_PUBLIC_KEY
+        );
+      } else {
+        // Se as chaves reais ainda forem os placeholders de exemplo, executa tentativa tratada
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            user_name: user.name,
+            user_email: user.email,
+            user_id: user.id,
+            amount: 'R$ 4,99',
+            pix_key: PIX_OFFICIAL_KEY,
+            to_email: 'alexfernandestb6@gmail.com',
+          },
+          EMAILJS_PUBLIC_KEY
+        ).catch((err) => {
+          console.warn('[EmailJS] Chaves padrão não configuradas ou erro no envio:', err?.text || err);
+        });
+      }
+    } catch (emailErr) {
+      console.warn('[EmailJS] Falha ao enviar notificação de pagamento Pix:', emailErr);
+    }
 
     return {
       success: true,
